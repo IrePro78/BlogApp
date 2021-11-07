@@ -2,10 +2,8 @@ import os
 from pathlib import Path
 from rest_framework import serializers
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', default='kluczyk')
@@ -39,7 +37,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
 
-    'users.apps.UsersConfig',
+    'users',
+    'articles'
 ]
 
 MIDDLEWARE = [
@@ -73,12 +72,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'BlogApp.wsgi.application'
 
-
 # Database
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE','django.db.backends.postgresql'),
+        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.postgresql'),
         'NAME': os.environ.get('SQL_DATABASE', 'DjangoBlog'),
         'USER': os.environ.get('SQL_USER', 'django'),
         'PASSWORD': os.environ.get('SQL_PASSWORD', 'django123'),
@@ -86,7 +84,6 @@ DATABASES = {
         'PORT': os.environ.get('SQL_PORT', '5432'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -106,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -120,6 +116,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = "accounts/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -141,5 +140,12 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = (True)
 
-
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}

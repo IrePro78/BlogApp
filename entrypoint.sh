@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "django_blog" ]
+if [ "$DATABASE" = "DjangoBlog" ]
 then
     echo "Waiting for postgres..."
 
