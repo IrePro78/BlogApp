@@ -1,4 +1,4 @@
-from .serializers import UserSerialaizer
+from .serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -6,5 +6,5 @@ from rest_framework.views import APIView
 class UserView(APIView):
 
     def get(self, request):
-        serialaizer = UserSerialaizer(request.user)
-        return Response(serialaizer.data)
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
