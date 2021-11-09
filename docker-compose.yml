@@ -3,9 +3,10 @@ version: '3.9'
 services:
 
   frontend:
+    container_name: frontend_blog
     build: ./frontend
     ports:
-      - 8080:8000
+      - 8080:8080
 
 
   web:
