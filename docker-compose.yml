@@ -1,6 +1,13 @@
 version: '3.9'
 
 services:
+
+  frontend:
+    build: ./frontend
+    ports:
+      - 8080:8000
+
+
   web:
     container_name: app_blog
     restart: always

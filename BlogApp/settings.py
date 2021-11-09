@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap5',
+    'webpack_loader',
 
     'rest_auth',
     'rest_auth.registration',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
 
     'users',
     'articles'
+
 ]
 
 MIDDLEWARE = [
@@ -148,4 +150,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ]
+}
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json')
+    }
 }
