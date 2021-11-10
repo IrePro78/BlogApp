@@ -5,9 +5,10 @@ services:
   frontend:
     container_name: frontend_blog
     build: ./frontend
+    volumes:
+      - ./frontend:/app/frontend
     ports:
       - 8080:8080
-
 
   web:
     container_name: app_blog

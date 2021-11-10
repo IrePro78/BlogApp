@@ -1,5 +1,5 @@
 #Base image
-FROM node:16
+FROM node:16.13.0
 
 #Install serve package
 RUN npm i -g serve
@@ -16,11 +16,12 @@ RUN npm install
 # Copy the project files
 COPY . .
 
-## Build the project
+# Build the project
 #RUN npm run build
-#
+
 # Expose a port
-EXPOSE 8000
+#EXPOSE 8000
 
 # Executables
-CMD [ "npm", "run", "-s", "serve" ]
+#CMD [ "serve", "-s", "dist" ]
+CMD [ "npm", "run", "serve" ]
