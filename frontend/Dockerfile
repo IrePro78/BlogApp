@@ -5,7 +5,7 @@ FROM node:16.13.0
 RUN npm i -g serve
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /app/frontend
 
 # Copy the package.json and package-lock.json
 COPY package*.json ./
