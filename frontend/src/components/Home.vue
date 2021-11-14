@@ -14,7 +14,7 @@
        :to="{name:'details', params:{slug:article.slug}}"
       >{{article.title }}</router-link>
     </h3>
-
+    <hr>
   </div>
 
 </div>
