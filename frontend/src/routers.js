@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import CreateArticle from "./components/CreateArticle";
 import ArticleDetails from "./components/ArticleDetails";
 import ArticleEdit from "./components/ArticleEdit";
+import SignUp from "./components/SignUp";
 
 const routes = [
   { path: '/',
@@ -21,6 +22,11 @@ const routes = [
   { path: '/edit/:slug',
     name:  "articledit",
     component: ArticleEdit,
+    props:true
+  },
+    { path: '/edit/:slug',
+    name:  "signup",
+    component: SignUp,
     props:true
   }
 
