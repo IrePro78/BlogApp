@@ -2,7 +2,7 @@
     <div class="container">
         <div class="columns">
             <div class="column is-4 is-offset-4">
-                <h1 class="title">Log in</h1>
+                <h1 class="title">Sign up</h1>
 
                 <form @submit.prevent="submitForm">
                     <div class="field">
@@ -15,7 +15,14 @@
                     <div class="field">
                         <label>Password</label>
                         <div class="control">
-                            <input type="password" name="password" class="input" v-model="password">
+                            <input type="password" name="password1" class="input" v-model="password1">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Repeat password</label>
+                        <div class="control">
+                            <input type="password" name="password2" class="input" v-model="password2">
                         </div>
                     </div>
 
@@ -36,69 +43,61 @@
 
 <script>
     import axios from 'axios'
+    import {toast} from 'bulma-toast'
     export default {
-        name: 'LogIn',
+        name: 'SignUp',
         data() {
             return {
                 username: '',
-                password: '',
+                password1: '',
+                password2: '',
                 errors: []
             }
         },
         methods: {
             async submitForm() {
-                this.$store.commit('setIsLoading', true)
-                axios.defaults.headers.common['Authorization'] = ''
-                localStorage.removeItem('token')
-                const formData = {
-                    username: this.username,
-                    password: this.password
+                this.errors = []
+                if (this.username === '') {
+                    this.errors.push('The username is missing')
                 }
-                await axios
-                    .post('/api/v1/token/login/', formData)
-                    .then(response => {
-                        const token = response.data.auth_token
-                        this.$store.commit('setToken', token)
-                        axios.defaults.headers.common['Authorization'] = 'Token ' + token
-                        localStorage.setItem('token', token)
-                    })
-                    .catch(error => {
-                        if (error.response) {
-                            for (const property in error.response.data) {
-                                this.errors.push(`${property}: ${error.response.data[property]}`)
-                            }
-                        } else if (error.message) {
-                            this.errors.push('Something went wrong. Please try again!')
-                        }
-                    })
-                await axios
-                    .get('/api/v1/users/me')
-                    .then(response => {
-                        this.$store.commit('setUser', {'id': response.data.id, 'username': response.data.username})
-                        localStorage.setItem('username', response.data.username)
-                        localStorage.setItem('userid', response.data.id)
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-                await axios
-                    .get('/api/v1/teams/get_my_team/')
-                    .then(response => {
-                        console.log(response.data)
-                        this.$store.commit('setTeam', {
-                            'id': response.data.id,
-                            'name': response.data.name,
-                            'plan': response.data.plan.name,
-                            'max_leads': response.data.plan.max_leads,
-                            'max_clients': response.data.plan.max_clients
-                        })
-                        this.$router.push('/dashboard/my-account')
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+                if (this.password1 === '') {
+                    this.errors.push('The password is too short')
+                }
+                if (this.password1 !== this.password2) {
+                    this.errors.push('The password are not matching')
+                }
+                if (!this.errors.length) {
+                    this.$store.commit('setIsLoading', true)
+                    const formData = {
+                        username: this.username,
+                        password: this.password1
+                    }
+                    await axios
+                        .post('/api/v1/users/', formData)
+                        .then(response => {
+                            toast({
+                                message: 'Account was created, please log in',
+                                type: 'is-success',
+                                dismissible: true,
+                                pauseOnHover: true,
+                                duration: 2000,
+                                position: 'bottom-right',
 
-                this.$store.commit('setIsLoading', false)
+                            })
+                            this.$router.push('/log-in')
+                        })
+                        .catch(error => {
+                            if (error.response) {
+                                for (const property in error.response.data) {
+                                    this.errors.push(`${property}: ${error.response.data[property]}`)
+                                }
+                            } else if (error.message) {
+                                this.errors.push('Something went wrong. Please try again!')
+                            }
+                        })
+
+                    this.$store.commit('setIsLoading', false)
+                }
             }
         }
     }

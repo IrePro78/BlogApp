@@ -4,6 +4,7 @@ import CreateArticle from "./components/CreateArticle";
 import ArticleDetails from "./components/ArticleDetails";
 import ArticleEdit from "./components/ArticleEdit";
 import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
 
 const routes = [
   { path: '/',
@@ -24,10 +25,13 @@ const routes = [
     component: ArticleEdit,
     props:true
   },
-    { path: '/edit/:slug',
-    name:  "signup",
+  { path: '/sign-up',
+    name:  "SignUp",
     component: SignUp,
-    props:true
+  },
+  { path: '/log-in',
+    name:  "LogIn",
+    component: LogIn,
   }
 
 ]

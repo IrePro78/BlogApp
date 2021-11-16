@@ -13,6 +13,11 @@ urlpatterns = [
     ), name="register"),
 
     path('accounts/', include('django.contrib.auth.urls')),
+
+    path('api/v1/', include('djoser.urls')),
+    path('api/v1/', include('djoser.urls.authtoken')),
+
+
     path('api/', include('users.urls')),
     path('api/', include('articles.urls')),
 

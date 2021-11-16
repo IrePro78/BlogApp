@@ -13,6 +13,10 @@ DEBUG = int(os.environ.get('DEBUG', default=0))
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
+CORS_ALLOWED_ORGINS = [
+    'http://localhost:8000',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +42,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
 
+    'corsheaders',
+    'djoser',
+
     'users',
     'articles'
 
@@ -46,6 +53,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
