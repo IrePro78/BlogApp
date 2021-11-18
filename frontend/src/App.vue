@@ -1,41 +1,53 @@
 <template>
 <div id="app">
   <Navbar/>
+  <section class="section">
   <router-view/>
+  </section>
 </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue'
-import {csrftoken} from "./csrf/csrf_token";
+import Navbar from '@/components/Navbar'
+import axios from "axios";
+// import {csrftoken} from "@/csrf/csrf_token";
 
 export default {
   name: 'App',
   components: {
     Navbar
   },
-  methods: {
-    getUser() {
-      fetch('api/user/', {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFTOKEN': csrftoken
-        }
-      })
-          .then(resp => resp.json())
-          .then((data) => {
-            const username = data["username"]
-            localStorage.setItem("username", username)
-
-          })
-          .catch(error => console.log(error))
+  beforeCreate() {
+            this.$store.commit('initializeStore')
+            if (this.$store.state.token) {
+                axios.defaults.headers.common['Authorization'] = "Token " + this.$store.state.token
+            } else {
+                axios.defaults.headers.common['Authorization'] = ""
+            }
+        },
     }
-  },
-  created() {
-    this.getUser()
-  }
-}
+//   methods: {
+//     getUser() {
+//       fetch('api/user/', {
+//         method: "GET",
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'X-CSRFTOKEN': csrftoken
+//         }
+//       })
+//           .then(resp => resp.json())
+//           .then((data) => {
+//             const username = data["username"]
+//             localStorage.setItem("username", username)
+//
+//           })
+//           .catch(error => console.log(error))
+//     }
+//   },
+//   created() {
+//     this.getUser()
+//   }
+// }
 
 </script>
 

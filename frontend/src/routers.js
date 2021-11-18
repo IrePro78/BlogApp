@@ -39,7 +39,13 @@ const routes = [
 const router = createRouter({
         history: createWebHistory(),
         routes,
-    }
-)
+    })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
+    next('/log-in')
+  } else {
+    next()
+  }
+})
 
 export default router;
