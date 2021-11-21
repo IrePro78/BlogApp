@@ -13,8 +13,10 @@ DEBUG = int(os.environ.get('DEBUG', default=0))
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
-CORS_ALLOWED_ORGINS = [
+CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
+    'http://localhost:8080',
+    'http://localhost:8081'
 ]
 
 # Application definition
@@ -28,16 +30,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
     'crispy_forms',
     'crispy_bootstrap5',
     'webpack_loader',
 
-    'rest_auth',
-    'rest_auth.registration',
+    # 'rest_auth',
+    # 'rest_auth.registration',
 
     'rest_framework.authtoken',
     'rest_framework',
@@ -126,9 +124,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = "accounts/login/"
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+# LOGIN_URL = "/"
+# LOGIN_REDIRECT_URL = "/"
+# LOGOUT_REDIRECT_URL = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -153,7 +151,6 @@ ACCOUNT_EMAIL_REQUIRED = (True)
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',

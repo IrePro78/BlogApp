@@ -6,36 +6,24 @@
 </template>
 
 <script>
+import axios from "axios";
 import Navbar from './components/Navbar.vue'
-import {csrftoken} from "./csrf/csrf_token";
 
 export default {
   name: 'App',
   components: {
     Navbar
   },
-  methods: {
-    getUser() {
-      fetch('api/user/', {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFTOKEN': csrftoken
-        }
-      })
-          .then(resp => resp.json())
-          .then((data) => {
-            const username = data["username"]
-            localStorage.setItem("username", username)
-
-          })
-          .catch(error => console.log(error))
+          beforeCreate() {
+            this.$store.commit('initializeStore')
+            if (this.$store.state.token) {
+                axios.defaults.headers.common['Authorization'] = "Token " + this.$store.state.token
+            } else {
+                axios.defaults.headers.common['Authorization'] = ""
+            }
+        },
     }
-  },
-  created() {
-    this.getUser()
-  }
-}
+
 
 </script>
 

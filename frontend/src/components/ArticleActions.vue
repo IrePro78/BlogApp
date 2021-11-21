@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {csrftoken} from "../csrf/csrf_token";
+import axios from 'axios'
 
 export default {
 
@@ -25,22 +25,21 @@ export default {
     }
   },
   methods: {
-    deleteArticle() {
-      fetch(`/api/articles/${this.slug}/`, {
-        method: "DELETE",
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFTOKEN': csrftoken,
-        },
-      })
-          .then(() => {
-            this.$router.push("/")
-            // console.log(data)
+    async deleteArticle() {
+      this.$store.commit('setIsLoading', true)
+      await axios
+      .delete(`/api/v1/articles/${this.slug}/`)
+      .then(() => {
+          this.$router.push({name: 'home'})
           })
-          .catch(error => console.log(error))
-    },
+          .catch(error => {
+            console.log(error)
+          })
+      this.$store.commit('setIsLoading', false)
+    }
   },
-};
+}
+
 </script>
 
 <style scoped>

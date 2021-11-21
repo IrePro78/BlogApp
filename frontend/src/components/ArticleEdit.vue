@@ -1,95 +1,93 @@
 <template>
-<div class="container mt-4">
+  <div class="container mt-4">
     <form @submit.prevent="updateArticle">
-    <input
-        type="text"
-        class="form-control"
-        placeholder="Proszę wpisać tytuł"
-        v-model="title"
-    />
-    <br/>
-    <textarea
-      rows="8"
-      placeholder="Proszę wpisać treść artykułu: "
-      class="form-control"
-      v-model="body"
-    >
+      <input
+          type="text"
+          class="form-control"
+          placeholder="Proszę wpisać tytuł"
+          v-model="title"
+      />
+      <br/>
+      <textarea
+          rows="8"
+          placeholder="Proszę wpisać treść artykułu: "
+          class="form-control"
+          v-model="body"
+      >
     </textarea>
-    <button class="btn btn-success mt-4">Edytuj artykuł</button>
+      <button class="btn btn-success mt-4">Edytuj artykuł</button>
     </form>
 
     <div v-if="error"
-      class="alert alert-warning alert-dismissible fade show mt-5"
+         class="alert alert-warning alert-dismissible fade show mt-5"
          role="alert"
-      >
-      <strong>{{error}}</strong>
+    >
+      <strong>{{ error }}</strong>
     </div>
   </div>
 </template>
 
 <script>
-import {csrftoken} from "../csrf/csrf_token";
+import axios from 'axios'
+import {toast} from "bulma-toast";
 
 export default {
   props: {
     slug: {
-      type:String,
-      required:true,
+      type: String,
+      required: true,
     }
   },
 
   data() {
     return {
-      title: null,
-      body: null,
-      error: null
+      article: {}
     }
   },
-
+  mounted() {
+    this.getArticle()
+    this.updateArticle()
+  },
   methods: {
-    updateArticle() {
-     if(!this.title || !this.body) {
+    async getArticle() {
+      this.$store.commit('setIsLoading', true)
+      await axios
+          .get(`/api/v1/articles/${this.slug}/`)
+          .then(response => {
+            this.article = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      this.$store.commit('setIsLoading', false)
+    },
+    async updateArticle() {
+      this.$store.commit('setIsLoading', true)
+      if (!this.title || !this.body) {
         this.error = "Proszę uzupełnić wszystkie pola"
       } else {
-
-        fetch(`/api/articles/${this.slug}/`, {
-        method:"PUT",
-        headers:{
-          'Content-Type':'application/json',
-          'X-CSRFTOKEN':csrftoken
-        },
-        body: JSON.stringify({title:this.title, body:this.body})
-      })
-      .then(resp=>resp.json())
-      .then(() => {
-        this.$router.push('/')
-
-      })
-      .catch(error => console.log(error))
+        await axios
+            .post(`/api/articles/${this.slug}/`, this.article)
+            .then(response => {
+              toast({
+                message: 'The article was updated',
+                type: 'is-success',
+                dismissible: true,
+                pauseOnHover: true,
+                duration: 2000,
+                position: 'bottom-right',
+              })
+              this.$router.push({name: 'home'})
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        this.$store.commit('setIsLoading', false)
       }
     }
-  },
-
-  beforeRouteEnter(to, form, next) {
-    if(to.params.slug !== undefined) {
-            fetch(`/api/articles/${to.params.slug}/`, {
-        method:"GET",
-        headers:{
-          'Content-Type':'application/json',
-          'X-CSRFTOKEN':csrftoken
-        }
-      })
-      .then(resp=>resp.json())
-      .then((data) => {
-        return next(vm=> (vm.title=data.title, vm.body=data.body))
-        // console.log(data)
-      })
-    }else {
-      return next()
-    }
   }
-
 }
+
 </script>
 
 <style scoped>

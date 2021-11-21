@@ -28,43 +28,49 @@
 </template>
 
 <script>
-import {csrftoken} from "../csrf/csrf_token";
+import axios from 'axios'
+import { toast } from 'bulma-toast'
 
 export default {
-  data() {
-    return {
-      title: null,
-      body: null,
-      error: null
-    }
-  },
+    name: 'CreateArticle',
+    data() {
+      return {
+        title: '',
+        body: '',
+        error: ''
+      }
+    },
   methods: {
-    insertArticle() {
+    async insertArticle() {
+      this.$store.commit('setIsLoading', true)
       if(!this.title || !this.body) {
         this.error = "Proszę uzupełnić wszystkie pola"
       } else {
-
-        fetch('api/articles/', {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'X-CSRFTOKEN':csrftoken
-        },
-        body: JSON.stringify({title:this.title, body:this.body})
-      })
-      .then(resp=>resp.json())
-      .then(() => {
-        this.$router.push({
-          name:'home'
-        })
-        // console.log(data)
-      })
-      .catch(error => console.log(error))
-    }
+        const article = {
+          title: this.title,
+          body: this.body
+        }
+        await axios
+            .post('/api/v1/articles/', article)
+            .then(response => {
+              toast({
+                message: 'The article was added',
+                type: 'is-success',
+                dismissible: true,
+                pauseOnHover: true,
+                duration: 2000,
+                position: 'bottom-right',
+              })
+              this.$router.push({name: 'home'})
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        this.$store.commit('setIsLoading', false)
       }
     }
   }
-
+}
 
 </script>
 
