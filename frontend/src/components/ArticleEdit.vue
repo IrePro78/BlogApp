@@ -41,33 +41,40 @@ export default {
 
   data() {
     return {
-      article: {}
+      title: '',
+      body: ''
     }
   },
   mounted() {
     this.getArticle()
-    this.updateArticle()
   },
   methods: {
     async getArticle() {
       this.$store.commit('setIsLoading', true)
-      await axios
-          .get(`/api/v1/articles/${this.slug}/`)
+
+      const articleSlug = this.$route.params.slug
+
+      axios.get(`/api/v1/articles/${articleSlug}/`)
           .then(response => {
-            this.article = response.data
+            return this.title = response.data.title, this.body = response.data.body
           })
           .catch(error => {
             console.log(error)
           })
       this.$store.commit('setIsLoading', false)
     },
+
     async updateArticle() {
       this.$store.commit('setIsLoading', true)
       if (!this.title || !this.body) {
         this.error = "Proszę uzupełnić wszystkie pola"
       } else {
+        const article = {
+          title: this.title,
+          body: this.body
+        }
         await axios
-            .post(`/api/articles/${this.slug}/`, this.article)
+            .put(`/api/v1/articles/${this.slug}/`, article)
             .then(response => {
               toast({
                 message: 'The article was updated',

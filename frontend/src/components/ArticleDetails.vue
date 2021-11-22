@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       article: {},
-      requestUser: {},
+      requestUser: '',
 
     }
   },
@@ -38,7 +38,7 @@ export default {
   },
   mounted() {
     this.getArticleData()
-    this.getUserRequest()
+    this.getUser()
 
 
   },
@@ -56,16 +56,8 @@ export default {
           })
 
     },
-    async getUserRequest() {
-      await axios
-          .get('/api/v1/users/me/')
-          .then(response => {
-            console.log(response.data.username)
-            this.requestUser = response.data.username
-          })
-          .catch(error => {
-            console.log(error)
-          })
+      getUser() {
+      this.requestUser = localStorage.getItem('username')
       this.$store.commit('setIsLoading', false)
     }
   },
@@ -81,16 +73,3 @@ export default {
 <style scoped>
 
 </style>
-
-
-async getUserRequest() {
-await axios
-.get('api/v1/users/me/')
-.then(response => {
-console.log(response.data)
-this.requestUser = localStorage.getItem('username')
-})
-.catch(error => {
-console.log(error)
-})
-this.$store.commit('setIsLoading', false)}

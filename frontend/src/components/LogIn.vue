@@ -6,7 +6,7 @@
 
                 <form @submit.prevent="submitForm">
                     <div class="field">
-                        <label>Name {{this.username}}</label>
+                        <label>Name</label>
                         <div class="control">
                             <input type="text" name="username" class="input" v-model="username">
                         </div>
