@@ -5,6 +5,7 @@ import ArticleDetails from "./components/ArticleDetails";
 import ArticleEdit from "./components/ArticleEdit";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
+import LogOut from "./components/LogOut";
 import MyAccount from "./components/MyAccount";
 
 
@@ -35,9 +36,13 @@ const routes = [
     name:  "LogIn",
     component: LogIn,
   },
-    { path: '/my-account',
-    name:  "MyAccount",
-    component: MyAccount,
+  { path: '/log-out',
+    name:  "LogOut",
+    component: LogOut,
+  },
+  { path: '/my-account',
+   name:  "MyAccount",
+   component: MyAccount,
   }
 
 ]

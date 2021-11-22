@@ -1,6 +1,9 @@
 <template>
 <div id="app">
   <Navbar/>
+  <div class = "is-loading-bar has-addons-centered" v-bind:class="{'is-loading': this.$store.state.isLoading}">
+    <div class="lds-dual-ring"></div>
+    </div>
   <router-view/>
 </div>
 </template>

@@ -6,13 +6,6 @@ from main.views import Index
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # path('accounts/register/', RegistrationView.as_view(
-    #     form_class=UserForm,
-    #     success_url="/",
-    # ), name="register"),
-
-    # path('accounts/', include('django.contrib.auth.urls')),
-
     path('api/v1/', include('djoser.urls')),
     path('api/v1/auth/', include('djoser.urls.authtoken')),
     path('api/v1/', include('users.urls')),

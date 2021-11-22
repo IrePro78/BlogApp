@@ -10,7 +10,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
     lookup_field = "slug"
     serializer_class = ArticleSerializer
 
-    permission_classes = [IsAuthenticated, IsAuthor]
+    permission_classes = [IsAuthor]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
