@@ -11,7 +11,10 @@
          <router-link class="btn btn-success me-1" to="/create">Create Article</router-link>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-danger" href="/accounts/logout/">Logout</a>
+        <router-link class="btn btn-outline-success me-1" to="/log-in">Login</router-link>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-danger" href="/api/v1/auth/token/logout/">Logout</a>
         </li>
 
        </ul>

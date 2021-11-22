@@ -5,6 +5,8 @@ import ArticleDetails from "./components/ArticleDetails";
 import ArticleEdit from "./components/ArticleEdit";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
+import MyAccount from "./components/MyAccount";
+
 
 const routes = [
   { path: '/',
@@ -32,14 +34,20 @@ const routes = [
   { path: '/log-in',
     name:  "LogIn",
     component: LogIn,
+  },
+    { path: '/my-account',
+    name:  "MyAccount",
+    component: MyAccount,
   }
 
 ]
 
 const router = createRouter({
         history: createWebHistory(),
-        routes,
-    })
+        routes
+    }
+)
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
     next('/log-in')
@@ -47,5 +55,6 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
 
 export default router;

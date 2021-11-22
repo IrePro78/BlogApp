@@ -21,35 +21,36 @@
 </template>
 
 <script>
-import {csrftoken} from "../csrf/csrf_token";
+import axios from 'axios'
 
 export default {
-
+  name: 'Articles',
   data() {
     return {
       articles:[]
     }
   },
-  methods: {
-    getAllArticles() {
-      fetch('api/articles/', {
-        method:"GET",
-        headers:{
-          'Content-Type':'application/json',
-          'X-CSRFTOKEN':csrftoken
-        }
-      })
-      .then(resp=>resp.json())
-      .then((data) => {
-        this.articles.push(...data)
-        // console.log(data)
-      })
-      .catch(error => console.log(error))
-    }
-  },
-  created() {
+  mounted() {
     this.getAllArticles()
-  }
+  },
+  methods: {
+
+    async getAllArticles() {
+      this.$store.commit('setIsLoading', true)
+      await axios
+          .get('api/v1/articles/')
+          .then(response => {
+            console.log(response.data)
+            this.articles = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      this.$store.commit('setIsLoading', false)
+    }
+
+  },
+
 }
 </script>
 

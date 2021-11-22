@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import {csrftoken} from "../csrf/csrf_token";
+import axios from 'axios'
 import ArticleActions from "./ArticleActions";
 
 export default {
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       article: {},
-      requestUser: null
+      requestUser: {},
 
     }
   },
@@ -36,24 +36,37 @@ export default {
       required: true,
     }
   },
-  methods: {
-    getArticleData() {
-      fetch(`/api/articles/${this.slug}/`, {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFTOKEN': csrftoken
-        }
-      })
-          .then(resp => resp.json())
-          .then((data) => {
-            this.article = data
-          })
-          .catch(error => console.log(error))
-    },
+  mounted() {
+    this.getArticleData()
+    this.getUserRequest()
 
-    getUserRequest() {
-      this.requestUser = localStorage.getItem("username")
+
+  },
+  methods: {
+    async getArticleData() {
+      this.$store.commit('setIsLoading', true)
+      await axios
+          .get(`/api/v1/articles/${this.slug}/`)
+          .then(response => {
+            console.log(response.data)
+            this.article = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+
+    },
+    async getUserRequest() {
+      await axios
+          .get('/api/v1/users/me/')
+          .then(response => {
+            console.log(response.data.username)
+            this.requestUser = response.data.username
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      this.$store.commit('setIsLoading', false)
     }
   },
   computed: {
@@ -61,15 +74,23 @@ export default {
       return this.article.author === this.requestUser
     }
   },
-  created() {
-    this.getArticleData()
-    this.getUserRequest()
-  }
 }
-
 
 </script>
 
 <style scoped>
 
 </style>
+
+
+async getUserRequest() {
+await axios
+.get('api/v1/users/me/')
+.then(response => {
+console.log(response.data)
+this.requestUser = localStorage.getItem('username')
+})
+.catch(error => {
+console.log(error)
+})
+this.$store.commit('setIsLoading', false)}
