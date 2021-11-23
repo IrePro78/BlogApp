@@ -56,8 +56,16 @@ export default {
           })
 
     },
-      getUser() {
-      this.requestUser = localStorage.getItem('username')
+    async getUser() {
+      await axios
+          .get('/api/v1/users/me/')
+          .then(response => {
+            console.log(response.data.username)
+            this.requestUser = response.data.username
+          })
+          .catch(error => {
+            console.log(error)
+          })
       this.$store.commit('setIsLoading', false)
     }
   },
