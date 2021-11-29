@@ -11,9 +11,5 @@ urlpatterns = [
     path('api/v1/', include('users.urls')),
     path('api/v1/', include('articles.urls')),
 
-    # path('auth/', include('rest_framework.urls')),
-    # path('rest-auth/', include('rest_auth.urls')),
-    # path('rest-auth/registration/', include('rest_auth.registration.urls')),
-
     re_path(r'^.*$', Index.as_view(), name="index"),
 ]

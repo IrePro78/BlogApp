@@ -25,12 +25,6 @@
               <router-link class="btn btn-outline-danger" to="/log-out">Logout</router-link>
             </template>
           </li>
-
-
-
-
-
-
         </ul>
       </div>
     </div>

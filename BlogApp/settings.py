@@ -1,4 +1,5 @@
 import os
+import datetime
 from pathlib import Path
 from rest_framework import serializers
 
@@ -118,11 +119,13 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
+
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
-USE_TZ = True
+USE_TZ = False
 
 # LOGIN_URL = "/"
 # LOGIN_REDIRECT_URL = "/"
@@ -153,8 +156,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DATETIME_FORMAT': "%d-%m-%Y %H:%M:%S",
 }
 
 WEBPACK_LOADER = {

@@ -37,8 +37,10 @@ export default {
 
     async getAllArticles() {
       this.$store.commit('setIsLoading', true)
+      const author = 'admin'
       await axios
-          .get('api/v1/articles/')
+
+          .get(`/api/v1/articles/${author}/`)
           .then(response => {
             console.log(response.data)
             this.articles = response.data
