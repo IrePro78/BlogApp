@@ -9,6 +9,7 @@ import LogOut from "./components/LogOut";
 import MyAccount from "./components/MyAccount";
 
 
+
 const routes = [
   { path: '/',
     name: "home",
