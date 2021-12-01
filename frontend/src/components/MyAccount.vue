@@ -11,26 +11,44 @@
     <hr>
   </div>
 
-  <div class="container mt-4">
-    <h4>Articles</h4>
-    <hr>
-    <div v-for="article in articles" :key="article.pk">
-      <p class="mb-0">Autor:
-        <span class="badge bg-primary">
-       {{ article.author }}
-    </span>
-      </p>
-      <h4>
-        <router-link
-            class="link-style"
-            :to="{name:'details', params:{slug:article.slug}}"
-        >{{ article.title }}
-        </router-link>
-      </h4>
-      <hr>
+  <div class="container mt-4 ">
+    <div class="row">
+      <div class="col-md-7 mt-4">
+        <h4>Articles</h4>
+        <hr>
+
+        <div v-for="article in articles" :key="article.pk">
+          <p class="mb-0">Autor:
+            <span class="badge bg-primary">
+                {{ article.author }}
+              </span>
+          </p>
+          <h4>
+            <router-link
+                class="link-style"
+                :to="{name:'details', params:{slug:article.slug}}"
+            >{{ article.title }}
+            </router-link>
+          </h4>
+          <h6>{{ article.created_at }}</h6>
+          <hr>
+        </div>
+
+      </div>
+
+      <div class="col mt-4">
+        <h4>User details</h4>
+        <hr>
+        <ul>
+        <li class="h6"> User id: {{this.$store.state.user.id}}</li>
+        <li class="h6">Username: {{this.$store.state.user.username}}</li>
+        <li class="h6">Email: {{this.$store.state.user.email}}</li>
+        <li class="h6">Date joined: {{this.$store.state.user.date_joined}}</li>
+        </ul>
+
+
+      </div>
     </div>
-
-
   </div>
 </template>
 

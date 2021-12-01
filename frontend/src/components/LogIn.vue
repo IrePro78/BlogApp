@@ -75,10 +75,19 @@
                 await axios
                     .get('/api/v1/users/me/')
                     .then(response => {
-                        this.$store.commit('setUser', {'id': response.data.id, 'username': response.data.username})
+                        console.log(response.data.username)
+                        this.$store.commit('setUser', {
+                          'id': response.data.id,
+                          'username': response.data.username,
+                          'email': response.data.email,
+                          'date_joined': response.data.date_joined
+
+                        })
                         localStorage.setItem('username', response.data.username)
                         localStorage.setItem('userid', response.data.id)
-                      console.log()
+                        localStorage.setItem('email', response.data.email)
+                        localStorage.setItem('date_joined', response.data.date_joined)
+
                     })
                     .catch(error => {
                         console.log(error)

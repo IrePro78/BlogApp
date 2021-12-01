@@ -7,7 +7,9 @@ export default createStore({
     token: '',
     user: {
       id: 0,
-      username: ''
+      username: '',
+      email:'',
+      date_joined:''
     }
   },
   mutations: {
@@ -16,12 +18,17 @@ export default createStore({
         state.token = localStorage.getItem('token')
         state.isAuthenticated = true
         state.user.username = localStorage.getItem('username')
+        state.user.email = localStorage.getItem('email')
         state.user.id = localStorage.getItem('userid')
+        state.user.date_joined = localStorage.getItem('date_joined')
+
       } else {
         state.token = ''
         state.isAuthenticated = false
         state.user.id = 0
         state.user.username = ''
+        state.user.email = ''
+        state.user.date_joined = ''
       }
     },
     setIsLoading(state, status) {

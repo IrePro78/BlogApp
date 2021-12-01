@@ -3,7 +3,8 @@ from .models import UserModel
 
 
 class UserSerializer(serializers.ModelSerializer):
+    date_joined = serializers.DateTimeField()
 
     class Meta:
         model = UserModel
-        fields = ['username']
+        fields = ['username', 'id', 'email', 'date_joined']
