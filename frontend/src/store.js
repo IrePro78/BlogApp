@@ -9,6 +9,7 @@ export default createStore({
       id: 0,
       username: '',
       email:'',
+      password:'',
       date_joined:''
     }
   },
@@ -21,6 +22,7 @@ export default createStore({
         state.user.email = localStorage.getItem('email')
         state.user.id = localStorage.getItem('userid')
         state.user.date_joined = localStorage.getItem('date_joined')
+        state.user.password = localStorage.getItem('password')
 
       } else {
         state.token = ''
@@ -29,6 +31,7 @@ export default createStore({
         state.user.username = ''
         state.user.email = ''
         state.user.date_joined = ''
+        state.user.password = ''
       }
     },
     setIsLoading(state, status) {

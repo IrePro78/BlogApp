@@ -1,16 +1,10 @@
 <template>
-  <div class="container">
-    <router-link
-    :to="{name:'articledit', params:{slug:slug}}"
-    class="btn btn-success mt-4 mx-2">
-    Update
-    </router-link>
+  <form class="container justify-content-end">
 
-    <button class="btn btn-danger mt-4"
-            @click="deleteUser"
-    >Delete
-    </button>
-  </div>
+    <button class="btn btn-sm btn-outline-dark me-1" @click="deleteUser">Edit profile</button>
+    <button class="btn btn-sm btn-outline-dark me-1" @click="deleteUser">Change password</button>
+    <button class="btn btn-sm btn-outline-danger me-1" @click="deleteUser">Delete account</button>
+  </form>
 </template>
 
 <script>
@@ -18,23 +12,27 @@ import axios from 'axios'
 
 export default {
 
-  props: {
-    slug: {
-      type: String,
-      required: true,
-    }
-  },
-  methods: {
+   methods: {
     async deleteUser() {
       this.$store.commit('setIsLoading', true)
+      const password = {
+        current_password: "janko123"
+
+      }
+      console.log(password)
+
       await axios
-      .delete('/api/v1/users/me/')
-      .then(() => {
-          this.$router.push({name: 'home'})
-          })
+      .delete('/api/v1/users/me/', password)
+      .then(response => {
+        console.log(response,'Deleted')
+      })
           .catch(error => {
             console.log(error)
           })
+      axios.defaults.headers.common['Authorization'] = ''
+      localStorage.removeItem('token')
+      this.$store.commit('removeToken')
+      await this.$router.push('/')
       this.$store.commit('setIsLoading', false)
     }
   },

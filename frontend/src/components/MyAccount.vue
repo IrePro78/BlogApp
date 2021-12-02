@@ -2,11 +2,9 @@
   <div>
     <hr>
     <nav class="navbar navbar-light bg-light">
-      <form class="container justify-content-end">
-        <button @click="" class="btn btn-sm btn-outline-primary me-1">Edit profile</button>
-        <button @click="" class="btn btn-sm btn-outline-primary me-1">Change password</button>
-        <router-link class="btn btn-sm btn-outline-danger me-1" to="/delete">Delete account</router-link>
-      </form>
+
+        <UserActions/>
+
     </nav>
     <hr>
   </div>
