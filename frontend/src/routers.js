@@ -7,6 +7,7 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import LogOut from "./components/LogOut";
 import MyAccount from "./components/MyAccount";
+import store from "./store";
 
 
 

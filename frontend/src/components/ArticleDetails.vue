@@ -10,6 +10,7 @@
     </h5>
     <p class="mt-3"> {{ article.body }}</p>
     <h6>{{ article.created_at}}</h6>
+     <hr>
     <ArticleActions v-if="IsAuthor" :slug="article.slug"/>
   </div>
 </template>
