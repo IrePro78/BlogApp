@@ -37,12 +37,12 @@
       <div class="col mt-4">
         <h4>User details</h4>
         <hr>
-        <ul>
-        <li class="h6"> User id: {{this.$store.state.user.id}}</li>
-        <li class="h6">Username: {{this.$store.state.user.username}}</li>
-        <li class="h6">Email: {{this.$store.state.user.email}}</li>
-        <li class="h6">Date joined: {{this.$store.state.user.date_joined}}</li>
-        </ul>
+
+        <p><strong> User id: </strong>{{this.$store.state.user.id}}</p>
+        <p><strong>Username: </strong>{{this.$store.state.user.username}}</p>
+        <p><strong>Email: </strong>{{this.$store.state.user.email}}</p>
+        <p><strong>Date joined: </strong>{{this.$store.state.user.date_joined}}</p>
+
 
 
       </div>

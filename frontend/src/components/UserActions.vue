@@ -2,7 +2,7 @@
   <form class="container justify-content-end">
 
     <button class="btn btn-sm btn-outline-dark me-1" @click="deleteUser">Edit profile</button>
-    <button class="btn btn-sm btn-outline-dark me-1" @click="deleteUser">Change password</button>
+    <button class="btn btn-sm btn-outline-dark me-1" @click="changePassword">Change password</button>
     <button class="btn btn-sm btn-outline-danger me-1" @click="deleteUser">Delete account</button>
   </form>
 </template>
@@ -16,7 +16,7 @@ export default {
     async deleteUser() {
       this.$store.commit('setIsLoading', true)
       const password = {
-        current_password: "janko123"
+        current_password: this.$store.state.user.password
 
       }
       console.log(password)

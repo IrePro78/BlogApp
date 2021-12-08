@@ -50,6 +50,7 @@
                 this.$store.commit('setIsLoading', true)
                 axios.defaults.headers.common['Authorization'] = ''
                 localStorage.removeItem('token')
+                localStorage.setItem('password', this.password)
                 const formData = {
                     username: this.username,
                     password: this.password
