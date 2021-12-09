@@ -12,28 +12,34 @@ import axios from 'axios'
 
 export default {
 
-   methods: {
+
+  methods: {
     async deleteUser() {
       this.$store.commit('setIsLoading', true)
-      const password = {
-        current_password: this.$store.state.user.password
-
-      }
-      console.log(password)
-
       await axios
-      .delete('/api/v1/users/me/', password)
-      .then(response => {
-        console.log(response,'Deleted')
-      })
+          .delete('/api/v1/users/me/', {
+            data: {
+              current_password: this.$store.state.user.password
+            }
+          })
+          .then(response => {
+            console.log(response, 'Deleted')
+          })
           .catch(error => {
-            console.log(error)
+            console.log(JSON.stringify(error))
           })
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('token')
+      localStorage.removeItem('userid')
+      localStorage.removeItem('username')
+      localStorage.removeItem('password')
+      localStorage.removeItem('email')
+      localStorage.removeItem('date_joined')
       this.$store.commit('removeToken')
+      this.$store.commit('setUser')
       await this.$router.push('/')
-      this.$store.commit('setIsLoading', false)
+
+
     }
   },
 }

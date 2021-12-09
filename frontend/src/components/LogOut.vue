@@ -15,17 +15,23 @@ export default {
   methods: {
     async logout() {
       await axios
-      .post('/api/v1/token/logout/')
+      .post('/api/v1/auth/token/logout/')
       .then(response => {
-        console.log('Logged out')
+        console.log(response, 'Logged out')
       })
       .catch(error => {
         console.log(JSON.stringify(error))
       })
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('token')
+      localStorage.removeItem('userid')
+      localStorage.removeItem('username')
+      localStorage.removeItem('password')
+      localStorage.removeItem('email')
+      localStorage.removeItem('date_joined')
       this.$store.commit('removeToken')
-      this.$router.push('/')
+      await this.$router.push('/')
+
     }
   }
 }
