@@ -2,9 +2,7 @@
   <div>
     <hr>
     <nav class="navbar navbar-light bg-light">
-
         <UserActions/>
-
     </nav>
     <hr>
   </div>
@@ -52,9 +50,10 @@
 
 <script>
 import axios from 'axios'
-import UserActions from "./UserActions";
+import UserActions from './UserActions'
 
 export default {
+  name: "MyAccount",
   components: {
     UserActions
   },
@@ -83,9 +82,7 @@ export default {
           })
       this.$store.commit('setIsLoading', false)
     }
-
-  },
-
+  }
 }
 </script>
 

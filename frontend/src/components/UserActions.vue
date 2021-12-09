@@ -1,9 +1,9 @@
 <template>
   <form class="container justify-content-end">
 
-    <button class="btn btn-sm btn-outline-dark me-1" @click="deleteUser">Edit profile</button>
+    <button class="btn btn-sm btn-outline-dark me-1" @click="editProfile">Edit profile</button>
     <button class="btn btn-sm btn-outline-dark me-1" @click="changePassword">Change password</button>
-    <button class="btn btn-sm btn-outline-danger me-1" @click="deleteUser">Delete account</button>
+    <button class="btn btn-sm btn-outline-danger me-1" @click="confirmDelete">Delete account</button>
   </form>
 </template>
 
@@ -11,9 +11,25 @@
 import axios from 'axios'
 
 export default {
-
+  name: "UserActions",
 
   methods: {
+    async confirmDelete() {
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You can\'t revert your action',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Delete!',
+        cancelButtonText: 'No, Cancel!',
+        reverseButtons: false
+      }).then((result) => {
+        if (result.value) {
+          this.$swal('Deleted', 'You successfully deleted you account', 'success', this.deleteUser())
+        }
+      })
+    },
+
     async deleteUser() {
       this.$store.commit('setIsLoading', true)
       await axios
@@ -38,8 +54,7 @@ export default {
       this.$store.commit('removeToken')
       this.$store.commit('setUser')
       await this.$router.push('/')
-
-
+      this.$store.commit('setIsLoading', false)
     }
   },
 }
