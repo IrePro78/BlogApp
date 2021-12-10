@@ -43,13 +43,12 @@ const routes = [
     component: LogOut,
   },
   { path: '/my-account',
-   name:  "MyAccount",
-   component: MyAccount,
+    name:  "MyAccount",
+    component: MyAccount,
     meta: {
     requireLogin: true
     }
   }
-
 ]
 
 const router = createRouter({

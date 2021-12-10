@@ -28,7 +28,6 @@ export default {
 
   methods: {
     confirmDelete() {
-
       this.$swal({
         title: 'Are you sure?',
         text: 'You can\'t revert your action',
