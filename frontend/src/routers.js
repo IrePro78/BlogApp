@@ -7,6 +7,7 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import LogOut from "./components/LogOut";
 import MyAccount from "./components/MyAccount";
+import ChangePassword from "./components/ChangePassword";
 import store from "./store";
 
 
@@ -48,6 +49,10 @@ const routes = [
     meta: {
     requireLogin: true
     }
+  },
+  { path: '/change-password',
+    name:  "ChangePassword",
+    component: ChangePassword
   }
 ]
 

@@ -51,11 +51,12 @@
 <script>
 import axios from 'axios'
 import UserActions from './UserActions'
+import ChangePassword from './ChangePassword'
 
 export default {
   name: "MyAccount",
   components: {
-    UserActions
+    UserActions, ChangePassword
   },
   data() {
     return {
