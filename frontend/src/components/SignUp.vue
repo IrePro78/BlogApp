@@ -82,7 +82,8 @@ export default {
         this.$store.commit('setIsLoading', true)
         const formData = {
           username: this.username,
-          password: this.password1
+          password: this.password1,
+          email: this.email
 
         }
         await axios

@@ -70,9 +70,7 @@ export default {
             .post('http://localhost:8000/api/v1/users/set_password/', formData)
             .then(response => {
               console.log(response.data)
-              this.$store.commit('setUser', {
-                'password': this.new_password
-              })
+
               toast({
                 message: 'Password was changed, please log in again',
                 type: 'is-success',
@@ -81,7 +79,8 @@ export default {
                 duration: 2000,
                 position: 'bottom-right',
               })
-              this.$router.push('/my-account')
+
+              this.$router.push('/log-out')
             })
             .catch(error => {
               console.log(JSON.stringify(error))
