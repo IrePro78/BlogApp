@@ -36,7 +36,6 @@
         <h4>User details</h4>
         <hr>
 
-        <p><strong> User id: </strong>{{this.$store.state.user.id}}</p>
         <p><strong>Username: </strong>{{this.$store.state.user.username}}</p>
         <p><strong>Email: </strong>{{this.$store.state.user.email}}</p>
         <p><strong>Date joined: </strong>{{this.$store.state.user.date_joined}}</p>

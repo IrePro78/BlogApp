@@ -56,8 +56,8 @@ export default {
       if (this.new_password === '') {
         this.errors.push('The new password is missing')
       }
-      if (this.current_password !== this.$store.state.user.password) {
-        this.errors.push('The current password are not matching')
+      if (this.current_password === this.new_password) {
+        this.errors.push('The new password is the same')
       }
       if (!this.errors.length) {
         this.$store.commit('setIsLoading', true)
@@ -69,21 +69,31 @@ export default {
         await axios
             .post('http://localhost:8000/api/v1/users/set_password/', formData)
             .then(response => {
-              console.log(response.data)
+                console.log(response.data, 'Password changed')
 
-              toast({
-                message: 'Password was changed, please log in again',
-                type: 'is-success',
-                dismissible: true,
-                pauseOnHover: true,
-                duration: 2000,
-                position: 'bottom-right',
-              })
-
+                toast({
+                  message: 'Password was changed, please log in again',
+                  type: 'is-success',
+                  dismissible: true,
+                  pauseOnHover: true,
+                  duration: 2000,
+                  position: 'bottom-right',
+                })
               this.$router.push('/log-out')
             })
             .catch(error => {
-              console.log(JSON.stringify(error))
+              if(error.response.status === 400){
+
+                toast({
+                  message: 'The current password is incorrect',
+                  type: 'is-danger',
+                  dismissible: true,
+                  pauseOnHover: true,
+                  duration: 2000,
+                  position: 'bottom-right',
+                })
+              }
+              console.log(error)
             })
         this.$store.commit('setIsLoading', false)
       }

@@ -86,15 +86,12 @@ export default {
               'username': response.data.username,
               'email': response.data.email,
               'date_joined': response.data.date_joined,
-              'password': this.password
 
             })
             localStorage.setItem('username', response.data.username)
             localStorage.setItem('userid', response.data.id)
             localStorage.setItem('email', response.data.email)
             localStorage.setItem('date_joined', response.data.date_joined)
-            localStorage.setItem('password', this.password)
-
 
             this.$router.push('/my-account')
 

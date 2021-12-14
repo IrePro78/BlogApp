@@ -26,7 +26,6 @@ export default {
       localStorage.removeItem('token')
       localStorage.removeItem('userid')
       localStorage.removeItem('username')
-      localStorage.removeItem('password')
       localStorage.removeItem('email')
       localStorage.removeItem('date_joined')
       this.$store.commit('removeToken')
