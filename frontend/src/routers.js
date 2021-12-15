@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router"
+import store from "./store";
 import Home from "./components/Home";
 import CreateArticle from "./components/CreateArticle";
 import ArticleDetails from "./components/ArticleDetails";
@@ -8,7 +9,7 @@ import LogIn from "./components/LogIn";
 import LogOut from "./components/LogOut";
 import MyAccount from "./components/MyAccount";
 import ChangePassword from "./components/ChangePassword";
-import store from "./store";
+import ProfileEdit from "@/components/ProfileEdit";
 
 
 
@@ -53,6 +54,13 @@ const routes = [
   { path: '/change-password',
     name:  "ChangePassword",
     component: ChangePassword
+  },
+  { path: '/profile-edit',
+    name:  "ProfileEdit",
+    component: ProfileEdit,
+    meta: {
+    requireLogin: true
+    }
   }
 ]
 

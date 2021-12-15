@@ -51,11 +51,14 @@
 import axios from 'axios'
 import UserActions from './UserActions'
 import ChangePassword from './ChangePassword'
+import ProfileEdit from './ProfileEdit'
 
 export default {
   name: "MyAccount",
   components: {
-    UserActions, ChangePassword
+    UserActions,
+    ChangePassword,
+    ProfileEdit
   },
   data() {
     return {

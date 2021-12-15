@@ -1,7 +1,8 @@
 <template>
   <div class="container justify-content-end">
 
-    <button class="btn btn-sm btn-outline-dark me-1" @click="editProfile">Edit profile</button>
+
+    <router-link class="btn btn-sm btn-outline-dark me-1" to="/profile-edit">Edit profile</router-link>
     <router-link class="btn btn-sm btn-outline-success me-1" to="/change-password">Change password</router-link>
     <button class="btn btn-sm btn-outline-danger me-1" @click="confirmDelete">Delete account</button>
   </div>
@@ -29,9 +30,7 @@ export default {
           autocorrect: 'off'
         }
       })
-      if (password) {
         await this.deleteUser(password)
-      }
     },
 
     async deleteUser(password) {
@@ -43,7 +42,7 @@ export default {
             }
           })
           .then(response => {
-            this.$swal(`Your account has been deleted`)
+            this.$swal('Deleted','Your account has been deleted', 'success')
             console.log(response, 'Deleted')
 
             axios.defaults.headers.common['Authorization'] = ''
@@ -58,8 +57,8 @@ export default {
 
           })
           .catch(error => {
-            if (error.response.status === 400) {
-              this.$swal(`The current password is incorrect`, {icon: 'warning'})
+            if (error.response.status === 400 || password === '') {
+              this.$swal('Wrong password', 'Please enter the correct password', 'error')
             }
             console.log(error)
           })

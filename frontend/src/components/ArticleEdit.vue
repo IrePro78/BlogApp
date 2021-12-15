@@ -4,18 +4,18 @@
       <input
           type="text"
           class="form-control"
-          placeholder="Proszę wpisać tytuł"
+          placeholder="Please enter a title"
           v-model="title"
       />
       <br/>
       <textarea
           rows="8"
-          placeholder="Proszę wpisać treść artykułu: "
+          placeholder="Please enter the text of the article: "
           class="form-control"
           v-model="body"
       >
     </textarea>
-      <button class="btn btn-success mt-4">Edytuj artykuł</button>
+      <button class="btn btn-success mt-4">Edit article</button>
     </form>
 
     <div v-if="error"
