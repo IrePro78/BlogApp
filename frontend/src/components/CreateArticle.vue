@@ -44,7 +44,7 @@ export default {
     async insertArticle() {
       this.$store.commit('setIsLoading', true)
       if(!this.title || !this.body) {
-        this.error = "Proszę uzupełnić wszystkie pola"
+        this.error = "Please complete all fields"
       } else {
         const article = {
           title: this.title,

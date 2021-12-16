@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <div class="columns">
       <div class="column is-4 is-offset-4">
         <h1 class="title">Change password</h1>

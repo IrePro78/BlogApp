@@ -11,8 +11,8 @@ axios.defaults.baseUrl = 'http://127.0.0.1:8000'
 
 const options = {
   customClass: {
-    confirmButton: 'btn btn-success mx-1',
-    cancelButton: 'btn btn-danger '
+    confirmButton: 'button is-success mx-1',
+    cancelButton: 'button is-danger '
   },
   buttonsStyling: false
 };
