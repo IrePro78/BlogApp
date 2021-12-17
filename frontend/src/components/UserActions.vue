@@ -4,7 +4,7 @@
 
     <router-link class="btn btn-sm btn-outline-dark me-1" to="/profile-edit">Edit profile</router-link>
     <router-link class="btn btn-sm btn-outline-success me-1" to="/change-password">Change password</router-link>
-    <button class="btn btn-sm btn-outline-danger me-1" @click="confirmDelete">Delete account</button>
+    <button class="btn btn-sm btn-outline-danger me-1" @click="deleteUser">Delete account</button>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import axios from 'axios'
 
 export default {
   methods: {
-    async confirmDelete() {
+    async deleteUser() {
 
       const {value: password} = await this.$swal({
         title: 'Are you sure?',
@@ -30,44 +30,43 @@ export default {
           autocorrect: 'off'
         }
       })
-        await this.deleteUser(password)
-    },
+      if (password) {
+        this.$store.commit('setIsLoading', true)
+        await axios
+            .delete('/api/v1/users/me/', {
+              data: {
+                current_password: password
+              }
+            })
+            .then(response => {
+              this.$swal('Deleted', 'Your account has been deleted', 'success')
+              console.log(response, 'Deleted')
 
-    async deleteUser(password) {
-      this.$store.commit('setIsLoading', true)
-      await axios
-          .delete('/api/v1/users/me/', {
-            data: {
-              current_password: password
-            }
-          })
-          .then(response => {
-            this.$swal('Deleted','Your account has been deleted', 'success')
-            console.log(response, 'Deleted')
+              axios.defaults.headers.common['Authorization'] = ''
+              localStorage.removeItem('token')
+              localStorage.removeItem('userid')
+              localStorage.removeItem('username')
+              localStorage.removeItem('email')
+              localStorage.removeItem('date_joined')
+              this.$store.commit('removeToken')
+              this.$store.commit('setUser')
+              this.$router.push('/')
 
-            axios.defaults.headers.common['Authorization'] = ''
-            localStorage.removeItem('token')
-            localStorage.removeItem('userid')
-            localStorage.removeItem('username')
-            localStorage.removeItem('email')
-            localStorage.removeItem('date_joined')
-            this.$store.commit('removeToken')
-            this.$store.commit('setUser')
-            this.$router.push('/')
+            })
+            .catch(error => {
+              if (error.response.status === 400) {
+                this.$swal('Wrong password', 'Please enter the correct password', 'error')
+              }
+              console.log(error)
+            })
 
-          })
-          .catch(error => {
-            if (error.response.status === 400 || password === '') {
-              this.$swal('Wrong password', 'Please enter the correct password', 'error')
-            }
-            console.log(error)
-          })
-
-      this.$store.commit('setIsLoading', false)
+        this.$store.commit('setIsLoading', false)
+      } else if(password === '') {
+        this.$swal('Wrong password', 'Please enter the correct password', 'error')
+      }
     }
-  },
+  }
 }
-
 </script>
 
 <style scoped>

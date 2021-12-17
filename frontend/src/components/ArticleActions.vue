@@ -27,7 +27,7 @@ export default {
   },
 
   methods: {
-    confirmDelete() {
+    async confirmDelete() {
       this.$swal({
         title: 'Are you sure?',
         text: 'You can\'t revert your action',
@@ -38,26 +38,23 @@ export default {
         reverseButtons: false
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$swal('Deleted', 'You successfully deleted this article', 'success', this.deleteArticle())
+          this.$swal('Deleted', 'You successfully deleted this article', 'success')
+          this.$store.commit('setIsLoading', true)
+
+          axios
+              .delete(`/api/v1/articles/${this.slug}/`)
+          this.$router.push({name: 'home'})
+
+              .catch(error => {
+                console.log(error)
+              })
+          this.$store.commit('setIsLoading', false)
         }
+
       })
-    },
-
-    async deleteArticle() {
-      this.$store.commit('setIsLoading', true)
-      await axios
-          .delete(`/api/v1/articles/${this.slug}/`)
-          .then(() => {
-            this.$router.push({name: 'home'})
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      this.$store.commit('setIsLoading', false)
     }
-  },
+  }
 }
-
 </script>
 
 <style scoped>

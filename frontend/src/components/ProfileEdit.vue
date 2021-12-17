@@ -43,6 +43,7 @@
 
 <script>
 import axios from "axios";
+import {toast} from "bulma-toast";
 
 export default {
   name: "ProfileEdit",
@@ -56,7 +57,6 @@ export default {
   },
   mounted() {
     this.getUserDetails()
-
   },
 
   methods: {
@@ -64,6 +64,9 @@ export default {
       this.errors2 = []
       if (this.email === '') {
         this.errors2.push('The email address is missing')
+      }
+      if (this.email === this.$store.state.user.email) {
+        this.errors2.push('The new email is the same')
       }
       if (!this.errors2.length) {
         this.$store.commit('setIsLoading', true)
@@ -74,12 +77,19 @@ export default {
             .patch('http://localhost:8000/api/v1/users/me/', email)
             .then(response => {
               console.log(response)
+              toast({
+                message: 'The address email was updated',
+                type: 'is-success',
+                dismissible: true,
+                pauseOnHover: true,
+                duration: 2000,
+                position: 'bottom-right',
+              })
               this.$store.commit('setUser', {
                 'userid': response.data.id,
                 'username': response.data.username,
                 'email': response.data.email,
                 'date_joined': response.data.date_joined,
-
               })
               localStorage.setItem('email', this.email)
             })
@@ -96,11 +106,8 @@ export default {
         this.errors1.push('The username is missing')
       }
       if (!this.errors1.length) {
-
-
         const {value: password} = await this.$swal({
           title: 'Do you change your name?',
-          // text: 'You can\'t revert your action',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Submit',
@@ -115,13 +122,10 @@ export default {
         })
         if (password) {
           this.$store.commit('setIsLoading', true)
-          console.log(password, this.username)
           const username = {
             new_username: this.username,
             current_password: password
           }
-
-
           await axios
               .post('http://localhost:8000/api/v1/users/set_username/', username)
               .then(response => {
@@ -141,6 +145,8 @@ export default {
                 console.log(error)
               })
           this.$store.commit('setIsLoading', false)
+        } else if (password === '') {
+          this.$swal('Wrong password', 'Password cannot be empty', 'error')
         }
       }
     },
