@@ -36,9 +36,6 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'webpack_loader',
 
-    # 'rest_auth',
-    # 'rest_auth.registration',
-
     'rest_framework.authtoken',
     'rest_framework',
 
@@ -138,7 +135,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 #
 # STATICFILES_DIRS = (
-#   os.path.join(BASE_DIR, 'assets'),
+#   os.path.join(BASE_DIR, 'dist'),
 # )
 
 # Default primary key field type
@@ -154,7 +151,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
-ACCOUNT_EMAIL_REQUIRED = (True)
+# ACCOUNT_EMAIL_REQUIRED = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
