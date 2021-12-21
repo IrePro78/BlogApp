@@ -1,2 +1,2 @@
-*.Vue linguist-vendored
+*.Vue linguist-vendored=true
 
