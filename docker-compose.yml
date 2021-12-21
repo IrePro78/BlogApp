@@ -21,15 +21,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    command: bash -c "gunicorn django_cache.wsgi --bind 0.0.0.0:8000"
+    command: bash -c "gunicorn BlogApp.wsgi --bind 0.0.0.0:8000"
     container_name: backend_blog
     image: backend_image
     volumes:
-      - .:/app/
+      - .:/backend
     ports:
       - 8000:8000
-#    links:
-#      - postgres
+    links:
+      - db
     env_file:
       - .env
     depends_on:
@@ -42,7 +42,7 @@ services:
       context: .
       dockerfile: SchedulerDockerfile
     volumes:
-      - .:/app
+      - .:/backend
     container_name: scheduler_blog
     image: scheduler_image
 
