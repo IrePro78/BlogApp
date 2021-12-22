@@ -11,8 +11,13 @@ services:
 #      - postgres_data:/var/lib/postgresql/data/
     ports:
       - 5432:5432
-    env_file:
-      - .env
+#    env_file:
+#      - .env
+
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=django123
+      - POSTGRES_DB=DjangoBlog
 
 
 
@@ -36,15 +41,15 @@ services:
       - db
 
 
-  scheduler:
-    restart: always
-    build:
-      context: .
-      dockerfile: SchedulerDockerfile
-    volumes:
-      - .:/backend
-    container_name: scheduler_blog
-    image: scheduler_image
+#  scheduler:
+#    restart: always
+#    build:
+#      context: .
+#      dockerfile: SchedulerDockerfile
+#    volumes:
+#      - .:/backend
+#    container_name: scheduler_blog
+#    image: scheduler_image
 
 
 
