@@ -17,10 +17,10 @@ RUN npm install
 COPY . .
 
 # Build the project
-RUN #npm run build
+#RUN npm run build
 
 # Expose a port
-EXPOSE 8000
+#EXPOSE 8000
 
 # Executables
 #CMD [ "serve", "-s", "dist" ]
