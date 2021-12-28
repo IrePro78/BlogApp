@@ -26,7 +26,7 @@ RUN npm run build
 
 
 
-FROM nginx:latest
+FROM nginx:1.21.4
 
 RUN  apt-get update \
   && apt-get install -y wget \

@@ -139,8 +139,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'templates')
 #
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'dist'),
-  os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'dist'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # Default primary key field type
@@ -156,7 +156,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
-ACCOUNT_EMAIL_REQUIRED = (True)
+ACCOUNT_EMAIL_REQUIRED = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -171,6 +171,9 @@ REST_FRAMEWORK = {
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'dist/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json')
+        'STATS_FILE': str(os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json')),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
     }
 }
