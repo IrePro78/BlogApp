@@ -66,7 +66,7 @@ ROOT_URLCONF = 'BlogApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': []
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -140,7 +140,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'templates')
 #
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'dist'),
-    # os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # Default primary key field type
@@ -170,7 +170,7 @@ REST_FRAMEWORK = {
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'dist/',
+        'BUNDLE_DIR_NAME': '',
         'STATS_FILE': str(os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json')),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
