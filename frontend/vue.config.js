@@ -21,7 +21,7 @@ module.exports = {
 
     chainWebpack: (config) => {
 
-        // config.output.filename("bundle.js");
+        config.output.filename("bundle.js");
 
         config.optimization.splitChunks(false);
 
@@ -40,7 +40,7 @@ module.exports = {
     }
 };
 
-
+//
 // const BundleTracker = require("webpack-bundle-tracker");
 //
 // module.exports = {

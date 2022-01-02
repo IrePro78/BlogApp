@@ -5,9 +5,11 @@ import store from "./store"
 import axios from 'axios'
 import VueSweetalert2 from "vue-sweetalert2"
 import  'sweetalert2/dist/sweetalert2.min.css'
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
 
 
-axios.defaults.baseUrl = 'http://127.0.0.1:8000'
+// axios.defaults.baseUrl = 'http://127.0.0.1:8000'
 
 const options = {
   customClass: {
