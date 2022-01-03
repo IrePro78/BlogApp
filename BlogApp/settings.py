@@ -15,7 +15,7 @@ DEBUG = int(os.environ.get('DEBUG', default=0))
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',
+    'http://localhost',
     'http://localhost:8080',
     'http://localhost:8081'
 
