@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <router-link class="navbar-brand" to="/">BlogApp</router-link>
+      <router-link class="navbar-brand" to="/">Blog Django and Vue</router-link>
       <div class="collapse navbar-collapse" id="navbarNav">
 
         <ul class="navbar-nav ms-auto">

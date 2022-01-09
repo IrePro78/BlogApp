@@ -74,7 +74,7 @@ export default {
           email: this.email
         }
         await axios
-            .patch('http://localhost:8000/api/v1/users/me/', email)
+            .patch('/api/v1/users/me/', email)
             .then(response => {
               console.log(response)
               toast({
@@ -127,7 +127,7 @@ export default {
             current_password: password
           }
           await axios
-              .post('http://localhost:8000/api/v1/users/set_username/', username)
+              .post('/api/v1/users/set_username/', username)
               .then(response => {
                 console.log(response)
                 this.$store.commit('setUser', {

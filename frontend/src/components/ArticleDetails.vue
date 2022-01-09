@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <h3>{{ article.title }}</h3>
 
-    <h5 class="mt-3">Autor:
+    <h5 class="mt-3">Author:
       <span class="badge bg-primary">
        {{ article.author }}
     </span>

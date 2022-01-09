@@ -67,7 +67,7 @@ export default {
         }
         console.log(formData)
         await axios
-            .post('http://localhost:8000/api/v1/users/set_password/', formData)
+            .post('/api/v1/users/set_password/', formData)
             .then(response => {
                 console.log(response.data, 'Password changed')
 

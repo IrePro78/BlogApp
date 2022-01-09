@@ -1,7 +1,7 @@
 <template>
 <div class = "container mt-4">
   <div v-for="article in articles" :key="article.pk">
-    <p class="mb-0">Autor:
+    <p class="mb-0">Author:
     <span class="badge bg-primary">
        {{article.author}}
     </span>
